@@ -1,16 +1,16 @@
 import { RequestHandler, Request, Response } from "express";
 import STATUS_CODE from "../constants/status";
-import TournamentService from "../services/tournament.service";
-import { Tournament } from "../types/tournament";
+import NewsService from "../services/news.service";
+import { News } from "../types/news";
 import logger from "../utils/logger";
 
-export const getAllTournaments: RequestHandler = async (
+export const getAllNews: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const tournamentService = new TournamentService();
-    const data = await tournamentService.getAllTournaments(req.query);
+    const newsService = new NewsService();
+    const data = await newsService.getAllNews(req.query);
     return res.status(STATUS_CODE.SUCCESS.OK).json(data);
   } catch (error) {
     logger.error(error);
@@ -18,14 +18,14 @@ export const getAllTournaments: RequestHandler = async (
   }
 };
 
-export const getATournamentById: RequestHandler = async (
+export const getANewstById: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const tournamentId = req.params.id;
+  const newsId = req.params.id;
   try {
-    const tournamentService = new TournamentService();
-    const data = await tournamentService.getATournamentById(tournamentId);
+    const newsService = new NewsService();
+    const data = await newsService.getANewsById(newsId);
     return res.status(STATUS_CODE.SUCCESS.OK).json(data);
   } catch (error) {
     logger.error(error);
@@ -33,14 +33,14 @@ export const getATournamentById: RequestHandler = async (
   }
 };
 
-export const createANewTournament: RequestHandler = async (
+export const createANews: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const theTournament: Tournament = req.body;
+  const theNews: News = req.body;
   try {
-    const tournamentService = new TournamentService();
-    const data = await tournamentService.createANewTournament(theTournament);
+    const newsService = new NewsService();
+    const data = await newsService.createANews(theNews);
     return res.status(STATUS_CODE.SUCCESS.CREATED).json(data);
   } catch (error) {
     logger.error(error);
@@ -48,14 +48,14 @@ export const createANewTournament: RequestHandler = async (
   }
 };
 
-export const deleteTournamentWithTitle: RequestHandler = async (
+export const deleteNewsWithTitle: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
   const { title } = req.body;
   try {
-    const tournamentService = new TournamentService();
-    const data = await tournamentService.deleteTournamentWithTitle(title);
+    const newsService = new NewsService();
+    const data = await newsService.deleteNewsWithTitle(title);
     return res.status(STATUS_CODE.SUCCESS.OK).json(data);
   } catch (error) {
     logger.error(error);
@@ -63,13 +63,13 @@ export const deleteTournamentWithTitle: RequestHandler = async (
   }
 };
 
-export const updateATournament: RequestHandler = async (
+export const updateANews: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const tournamentService = new TournamentService();
-    const data = await tournamentService.updateATournament(req.body);
+    const newsService = new NewsService();
+    const data = await newsService.updateANews(req.body);
     return res.status(STATUS_CODE.SUCCESS.OK).json(data);
   } catch (error) {
     logger.error(error);
